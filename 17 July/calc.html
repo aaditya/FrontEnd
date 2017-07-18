@@ -2,29 +2,80 @@
 <html>
     <head>
         <title>Calc</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     </head>
     <body>
-        <label for="num1">Number 1 : </label><input type="text" id="num1" value="12"><br>
-        <label for="opr">Operator : </label><input type="text" id="opr" value="+"><br>
-        <label for="num2">Number 2 : </label><input type="text" id="num2" value="13">
-        <p>Result : </p><span id="res"></span></p>
-        <br>
-        <button id="calc">Calculate</button>
+      <div class="container">
+      <form class="form-group">
+        <input type="text" id="num" placeholder="Enter expression and press enter." class="form-control">
+      </form>
+    </div>
     </body>
     <script>
-        document.querySelector("#calc").onclick=function(){
-            var num1 = parseInt(document.querySelector("#num1").value);
-            var num2 = parseInt(document.querySelector("#num2").value);
-            var opr = document.querySelector("#opr").value;
-            var res;
-            switch(opr) {
-              case "+" : res = num1 + num2; break;
-              case "-" :res = num1 - num2; break;
-              case "*" : res = num1 * num2; break;
-              case "/" : res = num1 / num2; break;
-              default : res = 'Invalid'; break;
+            var add = function(str) {
+              result = 0;
+              var arr = str.split("+");
+              arr.forEach(function(element) {
+                result += parseInt(element);
+              });
+              return result;
             }
-            document.querySelector("#res").innerHTML = res;
-        }
+
+            var subtract = function(str) {
+              result = 0;
+              var arr = str.split("-");
+              arr.forEach(function(element) {
+                result -= parseInt(element);
+              });
+              return result;
+            }
+
+            var multiply = function(str) {
+              result = 1;
+              var arr = str.split("*");
+              arr.forEach(function(element) {
+                result *= parseInt(element);
+              });
+              return result;
+            }
+
+            var divide = function(str) {
+              var arr = str.split("/");
+              result = str[0];
+              arr.forEach(function(element) {
+                if(element == result){}
+                else {
+                  if(element == 0){ result = "Cannot divide by 0." }
+                  else { result /= parseInt(element); }
+                }
+              });
+              return result;
+            }
+
+            document.querySelector("#num").onkeypress = function (event) {
+              if(document.querySelector("#num").value != undefined || document.querySelector("#num").value != "") {
+                if (event.keyCode == 13) {
+                  event.preventDefault();
+                  var str = document.querySelector("#num").value;
+                  var result;
+                  if(str.indexOf("+") !== -1) {
+                    result = add(str);
+                  }
+                  else if(str.indexOf("*") !== -1) {
+                    result = multiply(str);
+                  }
+                  else if(str.indexOf("-") !== -1) {
+                    result = subtract(str);
+                  }
+                  else if(str.indexOf("/") !== -1) {
+                    result = divide(str);
+                  }
+                  document.querySelector("#num").value = result;
+                }
+            }
+            else {
+              document.querySelector("#num").value = "Invalid Operation";
+            }
+          }
     </script>
 </html>

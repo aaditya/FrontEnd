@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Calc</title>
+    </head>
+    <body>
+        <label for="num1">Number 1 : </label><input type="text" id="num1" value="12"><br>
+        <label for="opr">Operator : </label><input type="text" id="opr" value="+"><br>
+        <label for="num2">Number 2 : </label><input type="text" id="num2" value="13">
+        <p>Result : </p><span id="res"></span></p>
+        <br>
+        <button id="calc">Calculate</button>
+    </body>
+    <script>
+        document.querySelector("#calc").onclick=function(){
+            var num1 = parseInt(document.querySelector("#num1").value);
+            var num2 = parseInt(document.querySelector("#num2").value);
+            var opr = document.querySelector("#opr").value;
+            var res;
+            switch(opr) {
+              case "+" : res = num1 + num2; break;
+              case "-" :res = num1 - num2; break;
+              case "*" : res = num1 * num2; break;
+              case "/" : res = num1 / num2; break;
+              default : res = 'Invalid'; break;
+            }
+            document.querySelector("#res").innerHTML = res;
+        }
+    </script>
+</html>
